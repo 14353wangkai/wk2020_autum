@@ -150,3 +150,15 @@
 
 
 
+## redis的一些指令
+
+- setnx
+- add
+- range
+- scan
+- delete
+- lpush
+- rpop
+- get
+- lindex
+

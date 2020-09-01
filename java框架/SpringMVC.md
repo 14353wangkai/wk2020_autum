@@ -45,3 +45,92 @@
   - 根据MethodParameter的类型来查找确认使用哪个HandlerMethodArgumentResolver，遍历所有的argumentResolvers的supportsParameter(MethodParameter parameter)方法。。如果返回true，则表示查找成功，当前MethodParameter，使用该HandlerMethodArgumentResolver。这里确认大多都是根据参数的注解已经参数的Type来确认。
   - 解析参数，从request中解析出MethodParameter对应的参数，这里解析出来的结果都是String类型。
   - 转换参数，把对应String转换成具体方法所需要的类型，这里就包括了基本类型、对象、List、Set、Map。
+
+
+
+## dispatcherServlet
+
+- webFlux
+
+  
+
+- 一般用什么办法注册servlet
+
+  - xml: <servlet>
+  - @Webservlet：4.0以上的servlet才可以
+
+- spring中，使用java configuration技术**注册**和**实例化**一个servlet
+
+  - **WebAppliationInitializer**
+
+    - 前置初始化:
+      - **AnnotationConfigWebApplicationContext ac = new AnnotationConfigWebApplication()**
+      - ac.register(xxx.class) // xxx.class是一个配置类？
+      - ac.refresh()
+    - 注册servlet
+      - DispatcherServlet servlet = new DispatcherServlet(ac);
+      - ServletReistration.Dynamic registration = servletContext.addServlet(servletContext);
+      - registration.setLoadOnStartup(1)
+      - registration.addMapping("*.do")
+
+    - 通过ac.register，完成了web.xml的工作，将servlet完成注册
+    - 通过@componentScan注解，完成了springmvc.xml和applicationcontext.xml的工作
+
+
+
+
+
+## tomcat 是如何调用onStartUp来启动时加载的
+
+- tomcat webContainer：符合servlet规范
+  - 在当前项目的classPath下，提供了META-INF文件夹，在该文件夹下的service下，一定要实现调用onStartup函数的方法
+  - 通过@HandlerType("")传递一个集合，该集合会包含WebApplicationInitializer.class接口的所有实现类
+
+
+
+## SpringMVC执行流程流程
+
+- refresh：启动，初始化spring容器
+- initWebApplicationContext
+
+- dispatchServlet：前端控制器，接收客户端的请求
+
+- 处理器
+
+- handlerMapping：处理器映射，基于URL找handler
+
+- gethandler
+
+- 拦截器：chain.addInterceptor();
+
+- handlerExcutionChain
+
+- HandlerAdapter：处理起适配器，基于handler找到对应的适配器
+
+  - supports根据类型判断，找到handler执行的对应的适配器
+  - handler()执行业务逻辑
+
+- viewResolver：视图解析器
+
+- view：具体解析视图，渲染视图
+
+- doDispatch
+
+  - 接受请求
+
+  - checkMultipart：文件上传
+
+  - getHandler(processed)
+
+    ```java
+    for (HandlerMapping hm:this.handlerMappings){
+        if(logger.isTraceEnabled){
+            logger.trace(
+            	"Testing handler map [" + hm + "] in DispatcherServlet with name"
+            )
+            HandlerExecution handler = new 
+        }
+    }
+    ```
+
+    

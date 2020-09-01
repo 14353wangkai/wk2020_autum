@@ -29,7 +29,7 @@
 
   - 回顾bean的约束，每个私有变量都拥有对应的setter，因此利用反射，我们直接可以对类中的所有变量进行注入
 
-    <img src="/Users/wangkai/Library/Application Support/typora-user-images/image-20200712172019360.png" alt="image-20200712172019360" style="zoom: 50%;" />
+    
 
 - 总结：
 
@@ -46,11 +46,7 @@
 
 - 为了防止代码冗余和逻辑混乱（核心逻辑被增强功能淹没），AOP将增强服务理解为一个无限大的“切面”，如果有什么类用到了这个增强，那么就会和这个切面相交
 
-  <img src="/Users/wangkai/Library/Application Support/typora-user-images/image-20200712174718712.png" alt="image-20200712174718712" style="zoom:33%;" />
-
 - xml里面aop的写法，原理就是给动态代理的method.invoke方法
-
-  ![image-20200712201249504](/Users/wangkai/Library/Application Support/typora-user-images/image-20200712201249504.png)
 
 - 注解也是差不多的道理
 
@@ -126,6 +122,10 @@
 - 声明式事务管理：
 - 基于TransactionProxyFactoryBean的方式，需要为每个进行事务管理的类做相应配置
 - 基于AspectJ的XML方式，不需要改动类，在XML文件中配置好即可
+
+## 事务传播模型
+
+
 
 
 
